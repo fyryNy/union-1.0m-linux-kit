@@ -1,0 +1,25 @@
+{
+    "C_Cpp.default.compilerPath": "/usr/bin/clang-cl",
+    "C_Cpp.default.compilerArgs": ["--target=i686-pc-windows-msvc", "/EHsc"],
+    "C_Cpp.default.intelliSenseMode": "windows-clang-x86",
+    "C_Cpp.default.cStandard": "c17",
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.forcedInclude": [
+        "${workspaceFolder}/cmake/IntelliSenseContext.h"
+    ],
+    "C_Cpp.default.includePath": [
+        "${workspaceFolder}/@PLUGIN_DIR@",
+        "${workspaceFolder}/@PLUGIN_DIR@/ZenGin/Gothic_UserAPI",
+        "${env:HOME}/my_msvc/opt/Union/1.0m/Union/v1.0m/Include",
+        "${env:HOME}/my_msvc/opt/Union/1.0m/DirectX7/include",
+        "${env:HOME}/my_msvc/opt/msvc/VC/Tools/MSVC/@MSVC_TOOLSET_VERSION@/atlmfc/include",
+        "${env:HOME}/my_msvc/opt/msvc/VC/Tools/MSVC/@MSVC_TOOLSET_VERSION@/include",
+        "${env:HOME}/my_msvc/opt/msvc/Windows Kits/10/Include/@WINDOWS_KIT_VERSION@/shared",
+        "${env:HOME}/my_msvc/opt/msvc/Windows Kits/10/Include/@WINDOWS_KIT_VERSION@/ucrt",
+        "${env:HOME}/my_msvc/opt/msvc/Windows Kits/10/Include/@WINDOWS_KIT_VERSION@/um",
+        "${env:HOME}/my_msvc/opt/msvc/Windows Kits/10/Include/@WINDOWS_KIT_VERSION@/winrt"
+    ],
+    "files.associations": {
+        "*.inl": "cpp"
+    }
+}
