@@ -15,6 +15,13 @@ fish /path/to/union-1.0m-linux-kit/install.fish \
   /path/to/repository
 ```
 
+## Prerequisites
+
+Install [mstorsjo/msvc-wine](https://github.com/mstorsjo/msvc-wine) before
+using this kit. Follow its upstream installation instructions and install the
+generated toolchain at `~/my_msvc/opt/msvc`, which is the default location
+expected by this kit.
+
 ## Required Union SDK
 
 This kit expects the Union 1.0m SDK at `~/my_msvc/opt/Union/1.0m`. A
