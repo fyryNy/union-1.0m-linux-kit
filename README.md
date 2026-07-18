@@ -13,7 +13,20 @@ remains usable.
 
 Follow the upstream msvc-wine installation instructions and install its
 generated toolchain at `~/my_msvc/opt/msvc`. The installer checks that exact
-location for the MSVC compiler and Windows SDK.
+location for the MSVC compiler and Windows SDK. Add the toolchain's x86 binary
+directory to `PATH` before using the kit:
+
+```fish
+fish_add_path ~/my_msvc/opt/msvc/bin/x86
+```
+
+`fish_add_path` persists the directory in Fish's universal variables, so new
+shells will also inherit it. To change `PATH` only in the current shell instead,
+run:
+
+```fish
+set -gx PATH ~/my_msvc/opt/msvc/bin/x86 $PATH
+```
 
 ## Required Union SDK
 
