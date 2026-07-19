@@ -129,21 +129,35 @@ configure_file("${CMAKE_CURRENT_LIST_DIR}/PROJECT-GUIDE.md.in"
     "${SOURCE_ROOT}/UNION_1.0M_LINUX.md" @ONLY)
 
 set(gitignore "${SOURCE_ROOT}/.gitignore")
-set(ignore_block
-    "\n# Union 1.0m CMake/msvc-wine generated files\n/out/\n/compile_commands.json\n/cmake/IntelliSenseActivePreset.h\n")
 if(EXISTS "${gitignore}")
     file(READ "${gitignore}" ignore_text)
 else()
     set(ignore_text "")
 endif()
+
+set(ignore_entries "")
 if(NOT ignore_text MATCHES "(^|\n)/out/($|\n)")
-    file(APPEND "${gitignore}" "${ignore_block}")
-elseif(NOT ignore_text MATCHES "(^|\n)/compile_commands\\.json($|\n)")
-    file(APPEND "${gitignore}" "/compile_commands.json\n")
+    string(APPEND ignore_entries "/out/\n")
+endif()
+if(NOT ignore_text MATCHES "(^|\n)/compile_commands\\.json($|\n)")
+    string(APPEND ignore_entries "/compile_commands.json\n")
 endif()
 if(NOT ignore_text MATCHES
         "(^|\n)/cmake/IntelliSenseActivePreset\\.h($|\n)")
-    file(APPEND "${gitignore}" "/cmake/IntelliSenseActivePreset.h\n")
+    string(APPEND ignore_entries "/cmake/IntelliSenseActivePreset.h\n")
+endif()
+
+if(NOT ignore_entries STREQUAL "")
+    set(ignore_prefix "")
+    if(NOT ignore_text STREQUAL "" AND NOT ignore_text MATCHES "\n$")
+        string(APPEND ignore_prefix "\n")
+    endif()
+    if(NOT ignore_text MATCHES
+            "(^|\n)# Union 1\\.0m CMake/msvc-wine generated files($|\n)")
+        string(APPEND ignore_prefix
+            "# Union 1.0m CMake/msvc-wine generated files\n")
+    endif()
+    file(APPEND "${gitignore}" "${ignore_prefix}${ignore_entries}")
 endif()
 
 message(STATUS "Installed Union 1.0m Linux support for ${PROJECT_NAME}")
