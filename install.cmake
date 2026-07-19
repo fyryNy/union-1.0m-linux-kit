@@ -98,7 +98,7 @@ if(NOT FORCE)
         if(EXISTS "${destination}")
             message(FATAL_ERROR
                 "Refusing to overwrite ${destination}\n"
-                "Review it first, then rerun install.fish --force if appropriate.")
+                "Review it first, then rerun install.sh --force if appropriate.")
         endif()
     endforeach()
 endif()

@@ -15,7 +15,7 @@ variables if yours differ.
 
 ## Configure and build
 
-```fish
+```sh
 cmake --preset MP-x4-MT-Release-msvc-wine
 cmake --build --preset MP-x4-MT-Release-msvc-wine
 ```
@@ -67,7 +67,7 @@ selected by the preset.
 The stock libraries are linked automatically. For an unusual plugin, configure
 extra dependencies without editing the generic CMake file:
 
-```fish
+```sh
 cmake --preset MP-x4-MT-Release-msvc-wine \
   -DUNION_EXTRA_LIBRARIES='libcurl_a;Crypt32;Normaliz' \
   -DUNION_EXTRA_INCLUDE_DIRECTORIES=/path/to/include \

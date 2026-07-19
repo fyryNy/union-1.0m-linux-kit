@@ -6,7 +6,8 @@ remains usable.
 
 ## Prerequisites
 
-- CMake 3.25 or newer, Ninja, Fish, Wine, and `clang-cl`;
+- CMake 3.25 or newer, Ninja, Wine, `clang-cl`, and Bash (required internally
+  by msvc-wine);
 - the VS Code Microsoft C/C++ extension and/or clangd for IntelliSense;
 - [mstorsjo/msvc-wine](https://github.com/mstorsjo/msvc-wine), installed
   before using this kit.
@@ -14,18 +15,19 @@ remains usable.
 Follow the upstream msvc-wine installation instructions and install its
 generated toolchain at `~/my_msvc/opt/msvc`. The installer checks that exact
 location for the MSVC compiler and Windows SDK. Add the toolchain's x86 binary
-directory to `PATH` before using the kit:
+directory to `PATH` before using the kit. In Bash, Zsh, Dash, Ksh, BusyBox
+`ash`, and other POSIX-compatible shells:
+
+```sh
+export PATH="$HOME/my_msvc/opt/msvc/bin/x86:$PATH"
+```
+
+That changes only the current shell. Add the same line to `~/.profile`,
+`~/.bashrc`, or `~/.zshrc` as appropriate if you want it to persist. In Fish,
+use its persistent universal path:
 
 ```fish
 fish_add_path ~/my_msvc/opt/msvc/bin/x86
-```
-
-`fish_add_path` persists the directory in Fish's universal variables, so new
-shells will also inherit it. To change `PATH` only in the current shell instead,
-run:
-
-```fish
-set -gx PATH ~/my_msvc/opt/msvc/bin/x86 $PATH
 ```
 
 ## Required Union SDK
@@ -54,7 +56,7 @@ For example, the kit could be located at:
 Open a terminal and change to the root of the old plugin repository, not to the
 Union SDK directory and not to this kit's directory:
 
-```fish
+```sh
 cd /path/to/MyPluginRepository
 find . -name '*.vcxproj'
 ```
@@ -65,26 +67,30 @@ The second command shows the Visual Studio projects below that directory.
 
 If the repository contains exactly one Union 1.0m plugin project, run:
 
-```fish
-fish /home/you/tools/union-1.0m-linux-kit/install.fish
+```sh
+/home/you/tools/union-1.0m-linux-kit/install.sh
 ```
 
-The installer uses the current directory as the plugin repository root. If it
-finds more than one matching `.vcxproj`, specify the correct one relative to
-that root:
+`install.sh` is a POSIX shell script and can be launched this way from Bash,
+Zsh, Fish, Dash, Ksh, and BusyBox `ash`. It uses the current directory as the
+plugin repository root. If it finds more than one matching `.vcxproj`, specify
+the correct one relative to that root:
 
-```fish
-fish /home/you/tools/union-1.0m-linux-kit/install.fish \
+```sh
+/home/you/tools/union-1.0m-linux-kit/install.sh \
   --project PluginDirectory/PluginName.vcxproj
 ```
 
 You can also run it from anywhere by passing both the project and repository:
 
-```fish
-fish /home/you/tools/union-1.0m-linux-kit/install.fish \
+```sh
+/home/you/tools/union-1.0m-linux-kit/install.sh \
   --project PluginDirectory/PluginName.vcxproj \
   /path/to/MyPluginRepository
 ```
+
+The previous `fish install.fish ...` command remains available as a
+compatibility wrapper and accepts the same options.
 
 The installer refuses to overwrite existing integration files. Use `--force`
 only when updating a previous installation and only after reviewing your local
@@ -94,7 +100,7 @@ changes.
 
 From the plugin repository root, inspect what was added or corrected:
 
-```fish
+```sh
 git status --short
 git diff
 ```
@@ -107,14 +113,14 @@ project's `UnionAfx.h` and ZenGin files.
 
 List all available presets:
 
-```fish
+```sh
 cmake --list-presets
 ```
 
 Then configure and build the preset for the required engine and runtime. For
 example:
 
-```fish
+```sh
 cmake --preset G2A-MT-Release-msvc-wine
 cmake --build --preset G2A-MT-Release-msvc-wine
 ```
